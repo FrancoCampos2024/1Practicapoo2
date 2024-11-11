@@ -13,7 +13,7 @@
 
 <script>
 	function confirmarInsercion() {
-		return confirm("¿Está seguro de que desea modificar este cliente?");
+		return confirm("¿Modifico todos los datos necesarios?");
 	}
 </script>
 

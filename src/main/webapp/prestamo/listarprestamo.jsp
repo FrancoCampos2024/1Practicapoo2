@@ -1,3 +1,4 @@
+<%@page import="java.text.Normalizer.Form"%>
 <%@page import="beans.prestamo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,7 +16,20 @@
 <script>
 	function eliminar(idprestamo, idcliente, nombrec) {
 		if (confirm("¿Desea eliminar el prestamo?") == true) {
-			location.href = "PrestamosController?op=eliminar&idp=" + idprestamo+"&idc=" + idcliente + "&nombre=" + nombrec;
+			location.href = "PrestamosController?op=eliminar&idp=" + idprestamo
+					+ "&idc=" + idcliente + "&nombre=" + nombrec;
+		}
+	}
+	function insertar(idcliente, nombrec) {
+		if (confirm("¿Desea realizar un prestamo?") == true) {
+			location.href ="PrestamosController?op=nuevo&id="+idcliente+"&nombre="+nombrec ;
+		}
+	}
+	
+	function modificar(idprestamo, idcliente, nombrec) {
+		if (confirm("¿Desea modificar el prestamo?") == true) {
+			location.href = "PrestamosController?op=obtener&idp=" + idprestamo
+					+ "&idc=" + idcliente + "&nombre=" + nombrec;
 		}
 	}
 </script>
@@ -26,11 +40,14 @@ String url = "http://localhost:8080/ejerPractica/";
 List<prestamo> prestamo = (List<prestamo>) request.getAttribute("prestamos");
 String idc = (String) request.getAttribute("idcliente");
 String nombrec = (String) request.getAttribute("nombre");
-
 %>
+
+
+
+
+
 </head>
 <body>
-	
 
 	<div class="container">
 		<h3>PRESTAMOS</h3>
@@ -62,10 +79,10 @@ String nombrec = (String) request.getAttribute("nombre");
 					<td><%=p.getInteres()%></td>
 					<td><%=p.getNumcuota()%></td>
 					<td><a
-						href="<%=url%>PrestamosController?op=obtener&idc=<%=p.getIdcliente()%>&idp=<%=p.getIdprestamo()%>&nombre=<%=nombrec%>"
+						href="javascript:modificar(<%=p.getIdprestamo()%>,<%=p.getIdcliente()%>,'<%=nombrec%>')"
 						class="btn btn-primary">Modificar</a> <a
 						href="javascript:eliminar(<%=p.getIdprestamo()%>,<%=p.getIdcliente()%>,'<%=nombrec%>')"
-						 class="btn btn-danger">Eliminar</a></td>
+						class="btn btn-danger">Eliminar</a></td>
 
 
 				</tr>
@@ -81,7 +98,7 @@ String nombrec = (String) request.getAttribute("nombre");
 
 <div class="container">
 	<a
-		href="<%=url%>PrestamosController?op=nuevo&id=<%=idc%>&nombre=<%=nombrec%>"
+		href="javascript:insertar(<%=idc%>,'<%=nombrec%>')"
 		class="btn btn-light">Nuevo Prestamo</a> <a
 		href="<%=url%>ClienteController?op=listar">Volver</a>
 </div>

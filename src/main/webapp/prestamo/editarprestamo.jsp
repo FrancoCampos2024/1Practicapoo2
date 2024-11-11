@@ -13,7 +13,7 @@
 
 <script>
 	function confirmarInsercion() {
-		return confirm("¿Está seguro de que desea modificar este prestamo?");
+		return confirm("¿Datos modificados correctamente?");
 	}
 </script>
 </head>

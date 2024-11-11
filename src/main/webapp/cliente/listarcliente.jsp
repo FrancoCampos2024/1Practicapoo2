@@ -16,9 +16,18 @@
 	function eliminar(id) {
 		if (confirm("¿Desea eliminar el cliente?, tener en cuenta que se eliminara toda operacion de prestamo de este cliente.") == true) {
 			location.href = "ClienteController?op=eliminar&id=" + id;
+		}
+	}
 
-		} else {
+	function modificar(id) {
+		if (confirm("¿Desea modificar al cliente?") == true) {
+			location.href = "ClienteController?op=obtener&id=" + id;
+		}
+	}
 
+	function insertar() {
+		if (confirm("¿Desea insertar un cliente?") == true) {
+			location.href = "ClienteController?op=nuevo";
 		}
 	}
 </script>
@@ -31,8 +40,20 @@
 	List<cliente> client = (List<cliente>) request.getAttribute("listarcliente");
 	%>
 
+
+
+
+
 	<div class="container">
 		<h3>CLIENTES</h3>
+		<div class="container">
+			<form role="form" action="<%=url%>ClienteController" method="POST">
+				<input type="hidden" name="op" value="listar"> <input
+					type="search" class="form-control" name="nombrec" value=""
+					placeholder="Ingrese el nombre del cliente"> <input
+					type="submit" class="btn btn-outline-ligth" value="Buscar">
+			</form>
+		</div>
 		<table class="table">
 			<thead>
 				<tr>
@@ -58,8 +79,7 @@
 					<td><%=c.getDni()%></td>
 					<td><%=c.getFechanacimiento()%></td>
 					<td><%=c.getDireccion()%></td>
-					<td><a
-						href="<%=url%>ClienteController?op=obtener&id=<%=c.getIdcliente()%>"
+					<td><a href="javascript:modificar(<%=c.getIdcliente()%>) "
 						class="btn btn-primary">Modificar</a></td>
 					<td><a href="javascript:eliminar(<%=c.getIdcliente()%>) "
 						class="btn btn-danger">Eliminar</a></td>
@@ -78,7 +98,7 @@
 
 </body>
 <div class="container">
-	<a href="<%=url%>ClienteController?op=nuevo" class="btn btn-light">Nuevo</a>
+	<a href="javascript:insertar()" class="btn btn-light">Nuevo</a>
 </div>
 
 </html>
